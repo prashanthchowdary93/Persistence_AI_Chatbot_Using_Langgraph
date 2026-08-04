@@ -1,6 +1,6 @@
 import streamlit as st
 from chatbot_backend import chat_workflow,retrive_unique_thread_ids
-from langchain_core.messages import HumanMessage
+from langchain_core.messages import HumanMessage,AIMessage,ToolMessage
 from langchain_core.utils.uuid import uuid7
 
 ##########################Utility functions#######################################
@@ -40,7 +40,18 @@ if 'thread_history' not in st.session_state:
 
 add_thread_history(st.session_state['thread_id'],'New Chat')
 
-#############Setting up the Session###############################################    
+#############Setting up the Session###############################################  
+# 
+#
+# ============================ Sidebar ============================
+st.sidebar.title("LangGraph PDF Chatbot")
+
+
+uploaded_pdf = st.sidebar.file_uploader("Upload a PDF for this chat", type=["pdf"])
+
+
+# ============================ Main Layout ========================
+st.title("Multi Utility Chatbot")   
 
 ##################Adding side bars################################################
 
@@ -60,8 +71,10 @@ for thread_id, title in st.session_state["thread_history"].items():
         for msg in conv_messages:
             if isinstance(msg,HumanMessage):
                 role = 'user'
+            elif isinstance(msg, AIMessage):
+                role = "assistant"
             else:
-                role = 'assistant'
+                continue    
             temp_msg.append({'role':role,'content':msg.content})       
         st.session_state['chat_history'] = temp_msg
 ##################Adding side bars################################################
@@ -95,11 +108,22 @@ if user_input:
 
     
     with st.chat_message('assistant'):
-        #st.text(resp['messages'][-1].content)
-        ai_message = st.write_stream(message.content for message,metadata in chat_workflow.stream(
-                {'messages':HumanMessage(content=user_input)},
-                config=CONFIG,
-                stream_mode="messages",
-            ))
+        def ai_only_stream():
+            try:
+                for message_chunk, metadata in chat_workflow.stream(
+                    {"messages": [HumanMessage(content=user_input)]},
+                    config=CONFIG,
+                    stream_mode="messages",
+                ):
+                    print(type(message_chunk), message_chunk)
+
+                    if isinstance(message_chunk, AIMessage):
+                        yield message_chunk.content
+
+            except Exception as e:
+                print("STREAM ERROR:", e)
+                raise e
+
+        ai_message = st.write_stream(ai_only_stream())
     st.session_state['chat_history'].append({'role':'assistant','content':ai_message})
 ####################User Input and Invoke function###################################    
