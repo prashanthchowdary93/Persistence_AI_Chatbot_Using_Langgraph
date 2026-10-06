@@ -2,6 +2,7 @@ import streamlit as st
 from chatbot_backend import chat_workflow,retrive_unique_thread_ids
 from langchain_core.messages import HumanMessage,AIMessage,ToolMessage
 from langchain_core.utils.uuid import uuid7
+from create_vector_db import create_doc_embeddings
 
 ##########################Utility functions#######################################
 def generate_thread_id():
@@ -49,7 +50,9 @@ st.sidebar.title("LangGraph PDF Chatbot")
 
 uploaded_pdf = st.sidebar.file_uploader("Upload a PDF for this chat", type=["pdf"])
 
-
+if uploaded_pdf is not None:
+    #print(f"Uploaded doc name is : {uploaded_pdf.name} and size is : {uploaded_pdf.size}")
+    create_doc_embeddings(uploaded_pdf.getvalue())
 # ============================ Main Layout ========================
 st.title("Multi Utility Chatbot")   
 

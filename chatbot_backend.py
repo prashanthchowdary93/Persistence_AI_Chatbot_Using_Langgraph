@@ -13,6 +13,8 @@ from langchain_community.vectorstores import Chroma
 #Load the dotenv
 load_dotenv()
 
+chat_workflow = ''
+
 #EMbeddings loading
 embeddings = OpenAIEmbeddings()
 
