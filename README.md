@@ -1,8 +1,8 @@
-# 🤖 Persistent AI Chatbot Using LangGraph
+# 🤖 Persistent AI Chatbot
 
-A stateful AI chatbot built using **LangGraph, OpenAI, Streamlit, and SQLite** that demonstrates persistent conversational memory, thread-based session management, graph-based orchestration, and real-time response streaming.
+A stateful AI chatbot built using **LangGraph,Langchain, OpenAI, Streamlit, and SQLite** that demonstrates persistent conversational memory, thread-based session management, graph-based orchestration, and real-time response streaming.
 
-Unlike a basic chatbot where conversation history exists only during the current application session, this project uses **LangGraph checkpointing with SQLite** to persist graph state and restore previous conversations using a unique `thread_id`.
+Unlike a basic chatbot where conversation history exists only during the current application session, this project uses **LangGraph checkpointing with SQLite** to persist graph state and restore previous conversations using a unique `thread_id` concept.
 
 ---
 
@@ -533,28 +533,10 @@ LangGraph provides a structured way to represent these workflows as graphs with 
 
 This project focuses on one of the fundamental building blocks of agentic applications:
 
-> **Stateful AI workflows with persistent conversation state.**
 
 ---
 
-# 🎯 Interview Concepts Demonstrated
-
-This project can be discussed during a GenAI / Agentic AI interview around the following topics:
-
-### LangGraph
-
-* What is LangGraph?
-* Why use `StateGraph`?
-* What is graph state?
-* What is a node?
-* What is a reducer?
-* How does `add_messages` work?
-* How does graph execution work?
-
-### Persistence
-
-* What is a checkpointer?
-* Why is persistence required?
-* Difference between in-memory state and persistent state
-* How does `SqliteSaver` work?
-* What is a check
+## Author ##
+```
+Prashanth Chowdary Rimmalapudi
+```
