@@ -6,7 +6,7 @@ Unlike a basic chatbot where conversation history exists only during the current
 
 ---
 
-## 🎥 "AI Multi-Agent for Software Learning System" Tool Demo
+## 🎥 "Persistent AI Chatbot" Demo
 
 Watch the Persistent AI Chatbot demo:
 https://youtu.be/aTQn4O8oEmc
